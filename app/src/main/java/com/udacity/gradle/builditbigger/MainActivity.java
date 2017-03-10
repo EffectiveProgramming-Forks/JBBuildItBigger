@@ -4,9 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-import com.jeff.breunig.Jokes;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -19,8 +16,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void tellJoke() {
-        Jokes jokes = new Jokes();
-        Toast.makeText(this, jokes.getJoke(), Toast.LENGTH_SHORT).show();
+        new EndpointAsyncTask().execute();
+//        Jokes jokes = new Jokes();
+//        Toast.makeText(this, jokes.getJoke(), Toast.LENGTH_SHORT).show();
+//
+//        Intent intent = new Intent(this, DisplayJokeActivity.class);
+//        intent.putExtra(getString(R.id.joke_extra), jokes.getJoke());
+//        startActivity(intent);
     }
 
 
