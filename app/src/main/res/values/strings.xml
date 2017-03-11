@@ -3,5 +3,5 @@
     <string name="instructions">Press the button for a joke!</string>
     <string name="button_text">Tell Joke</string>
     <string name="joke_error">Failed to load joke</string>
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="admob_banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

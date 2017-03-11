@@ -2,7 +2,6 @@ package com.udacity.gradle.builditbigger;
 
 import android.support.annotation.UiThread;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +13,6 @@ import static junit.framework.Assert.assertNotNull;
  */
 
 @RunWith(AndroidJUnit4.class)
-@LargeTest
 public class EndpointTest {
 
     @Test(timeout = 10*1000)

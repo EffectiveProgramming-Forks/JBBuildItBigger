@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+/**
+ * Created by jkbreunig on 3/10/17.
+ */
+
 public class DisplayJokeActivity extends AppCompatActivity {
 
     private TextView textView;

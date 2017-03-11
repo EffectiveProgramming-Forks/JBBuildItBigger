@@ -9,31 +9,44 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.breunig.jeff.jokesdisplay.DisplayJokeActivity;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
+/**
+ * Created by jkbreunig on 3/10/17.
+ */
+
 public class MainActivityFragment extends Fragment implements EndpointAsyncTask.EndPointCallback {
 
-    @BindView(R.id.joke_progressbar) ProgressBar mProgressBar;
-    @BindView(R.id.joke_button) Button mButton;
-
+    @BindView(R.id.progress_bar) ProgressBar mProgressBar;
+    @BindView(R.id.button) Button mButton;
+    private Unbinder mUnbinder;
     public MainActivityFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_activity, container, false);
-        ButterKnife.bind(view);
-
+        mUnbinder = ButterKnife.bind(this, view);
         mButton.setOnClickListener((View v) -> {
             mProgressBar.setVisibility(View.VISIBLE);
             getJoke();
         });
-
         hideProgressBar();
         return view;
     }
 
-    public void getJoke(){
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
+    }
+
+    private void getJoke() {
 
         new EndpointAsyncTask().setCallbackListener(this).execute();
     }

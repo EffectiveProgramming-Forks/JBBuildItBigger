@@ -1,8 +1,9 @@
 package com.jeff.breunig.backend;
 
 /**
- * The object model for the data we are sending through endpoints
+ * Created by jkbreunig on 3/10/17.
  */
+
 public class MyBean {
 
     private String myData;

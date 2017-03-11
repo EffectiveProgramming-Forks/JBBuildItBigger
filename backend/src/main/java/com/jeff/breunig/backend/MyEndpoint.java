@@ -11,12 +11,10 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.jeff.breunig.Jokes;
 
-import javax.inject.Named;
-
-
 /**
- * An endpoint class we are exposing
+ * Created by jkbreunig on 3/10/17.
  */
+
 @Api(
         name = "myApi",
         version = "v1",

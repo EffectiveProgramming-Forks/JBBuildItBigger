@@ -12,33 +12,52 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.breunig.jeff.jokesdisplay.DisplayJokeActivity;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
+/**
+ * Created by jkbreunig on 3/10/17.
+ */
 
 public class MainActivityFragment extends Fragment implements EndpointAsyncTask.EndPointCallback {
 
-    @BindView(R.id.joke_progressbar) ProgressBar mProgressBar;
-    @BindView(R.id.joke_button) Button mButton;
-
+    @BindView(R.id.progress_bar) ProgressBar mProgressBar;
+    @BindView(R.id.button) Button mButton;
+    @BindView(R.id.ad_view) AdView mAdView;
+    private Unbinder mUnbinder;
     public MainActivityFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_activity, container, false);
-        ButterKnife.bind(view);
-
+        mUnbinder = ButterKnife.bind(this, view);
         mButton.setOnClickListener((View v) -> {
             mProgressBar.setVisibility(View.VISIBLE);
             getJoke();
         });
-
         hideProgressBar();
+        loadAd();
         return view;
     }
 
-    public void getJoke(){
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
+    }
+
+    private void loadAd() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        mAdView.loadAd(adRequest);
+    }
+
+    private void getJoke() {
 
         new EndpointAsyncTask().setCallbackListener(this).execute();
     }

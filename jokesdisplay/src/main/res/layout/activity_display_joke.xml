@@ -13,8 +13,7 @@
         android:id="@+id/joke_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/default_text_size"
         android:gravity="center"
-        android:textSize="64dp"
-        android:text=""
         android:layout_gravity="center_horizontal" />
 </RelativeLayout>
