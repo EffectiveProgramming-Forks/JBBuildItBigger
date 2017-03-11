@@ -1,7 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -17,8 +16,7 @@ import timber.log.Timber;
 
 public class EndpointAsyncTask extends AsyncTask<Void, Void, String> {
     private static MyApi mApi;
-    private final String LOG_TAG = EndpointAsyncTask.class.getSimpleName();
-    private EndPointCallback endpointCallback;
+    private EndPointCallback mEndpointCallback;
 
     @Override
     protected String doInBackground(Void... params) {
@@ -32,7 +30,7 @@ public class EndpointAsyncTask extends AsyncTask<Void, Void, String> {
         try {
             return mApi.tellJoke().execute().getData();
         } catch (IOException e) {
-            Log.e(LOG_TAG, "doInBackground: ", e);
+            Timber.d(e);
             return null;
         }
     }
@@ -41,25 +39,17 @@ public class EndpointAsyncTask extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         Timber.d("JOKE: " + result);
-        if (endpointCallback != null) {
-            endpointCallback.onComplete(result);
+        if (mEndpointCallback != null) {
+            mEndpointCallback.onComplete(result);
         }
     }
 
-    /**
-     * @param endpointCallback, implementation of {@link EndPointCallback}
-     */
     public EndpointAsyncTask setCallbackListener(EndPointCallback endpointCallback) {
-        this.endpointCallback = endpointCallback;
+        this.mEndpointCallback = endpointCallback;
         return this;
     }
 
     public interface EndPointCallback {
-        /**
-         * Called when {@link EndpointAsyncTask} is completed
-         *
-         * @param result null in case of error else a joke string.
-         */
         void onComplete(String result);
     }
 }
