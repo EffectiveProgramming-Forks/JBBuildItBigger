@@ -13,33 +13,24 @@ import android.widget.ProgressBar;
 import com.breunig.jeff.jokesdisplay.DisplayJokeActivity;
 public class MainActivityFragment extends Fragment implements EndpointAsyncTask.EndPointCallback {
 
-    public MainActivityFragment() {
-    }
+    @BindView(R.id.joke_progressbar) ProgressBar mProgressBar;
+    @BindView(R.id.joke_button) Button mButton;
 
-    ProgressBar progressBar = null;
-    public boolean testFlag = false;
+    public MainActivityFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_main_activity, container, false);
+        View view = inflater.inflate(R.layout.fragment_main_activity, container, false);
+        ButterKnife.bind(view);
 
-
-        // Set onClickListener for the button
-        Button button = (Button) root.findViewById(R.id.joke_btn);
-        button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                getJoke();
-            }
+        mButton.setOnClickListener((View v) -> {
+            mProgressBar.setVisibility(View.VISIBLE);
+            getJoke();
         });
 
-        progressBar = (ProgressBar) root.findViewById(R.id.joke_progressbar);
-        progressBar.setVisibility(View.GONE);
-
-
-        return root;
+        hideProgressBar();
+        return view;
     }
 
     public void getJoke(){
@@ -52,20 +43,21 @@ public class MainActivityFragment extends Fragment implements EndpointAsyncTask.
         if (result != null) {
             launchDisplayJokeActivity(result);
         } else {
-            Toast.makeText(getContext(), "", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getString(R.string.joke_error), Toast.LENGTH_LONG).show();
         }
-        progressBar.setVisibility(View.GONE);
+        hideProgressBar();
     }
 
     public void launchDisplayJokeActivity(String joke) {
-        if (!testFlag) {
-            Context context = getActivity();
-            Intent intent = new Intent(context, DisplayJokeActivity.class);
-            intent.putExtra(context.getString(R.string.joke_extra), joke);
-            //Toast.makeText(context, loadedJoke, Toast.LENGTH_LONG).show();
-            context.startActivity(intent);
-            progressBar.setVisibility(View.GONE);
-        }
+        Context context = getActivity();
+        Intent intent = new Intent(context, DisplayJokeActivity.class);
+        intent.putExtra(context.getString(R.string.joke_extra), joke);
+        context.startActivity(intent);
     }
 
+    private void showProgressBar() { mProgressBar.setVisibility(View.VISIBLE); }
+
+    private void hideProgressBar() {
+        mProgressBar.setVisibility(View.GONE);
+    }
 }
