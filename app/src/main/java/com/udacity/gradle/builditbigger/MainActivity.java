@@ -12,19 +12,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tellJoke();
     }
-
-    private void tellJoke() {
-        new EndpointAsyncTask().execute();
-//        Jokes jokes = new Jokes();
-//        Toast.makeText(this, jokes.getJoke(), Toast.LENGTH_SHORT).show();
-//
-//        Intent intent = new Intent(this, DisplayJokeActivity.class);
-//        intent.putExtra(getString(R.id.joke_extra), jokes.getJoke());
-//        startActivity(intent);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
